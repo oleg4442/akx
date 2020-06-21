@@ -1,0 +1,23 @@
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		print("Touch!")
+	end
+	if action_id == hash("key_right") then
+		local player_pos = go.get_position("player")
+		player_pos.x = player_pos.x + 10
+		go.set_position(player_pos, "player")
+	end
+	if action_id == hash("key_left") then
+		local player_pos = go.get_position("player")
+		player_pos.x = player_pos.x -10
+		go.set_position(player_pos, "player")
+	end
+	if action_id == hash("space") then
+		msg.post("/bullet#controller", "shoot")
+	end
+end
